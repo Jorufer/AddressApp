@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 
 public class RootLayoutController implements Initializable {
@@ -52,6 +53,16 @@ public class RootLayoutController implements Initializable {
             }
             this.address_app.saveContactDataToFile(arxiu);
         }
+    }
+
+    @FXML
+    public void aboutMe() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sobre mi");
+        alert.setHeaderText("Infomació del Autor");
+        alert.setContentText("Nom i Cognom: José Luis Rubio");
+
+        alert.showAndWait();
     }
 
     private File mostraDialeg(String tipus) {
