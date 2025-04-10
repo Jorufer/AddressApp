@@ -1,0 +1,74 @@
+package uf12addressapp;
+
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.stage.FileChooser;
+
+public class RootLayoutController implements Initializable {
+
+    private UF12AddressApp address_app;
+
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+
+    }
+
+    public void setAddressApp(UF12AddressApp address_app) {
+        this.address_app = address_app;
+    }
+
+    @FXML
+    public void exit() {
+        System.exit(0);
+    }
+
+    @FXML
+    public void openFile() {
+        File arxiu = this.mostraDialeg("open");
+        if (arxiu != null) {
+            this.address_app.loadContactDataFromFile(arxiu);
+        }
+    }
+
+    @FXML
+    public void saveFile() {
+        File arxiu = this.address_app.getContactFilePath();
+        if (arxiu != null) {
+            this.address_app.saveContactDataToFile(arxiu);
+        } else {
+            this.saveAsFile();
+        }
+    }
+
+    @FXML
+    public void saveAsFile() {
+        File arxiu = mostraDialeg("save");
+        if (arxiu != null) {
+            if (!arxiu.getPath().endsWith(".txt")) {
+                arxiu = new File(arxiu.getPath() + ".txt");
+            }
+            this.address_app.saveContactDataToFile(arxiu);
+        }
+    }
+
+    private File mostraDialeg(String tipus) {
+        File arxiu;
+
+        FileChooser seleccionador = new FileChooser();
+        FileChooser.ExtensionFilter extensio = new FileChooser.ExtensionFilter(
+                "Archivos de texto", "*.txt");
+
+        seleccionador.getExtensionFilters().add(extensio);
+        if (tipus.equals("save")) {
+            return arxiu = seleccionador.showSaveDialog(
+                    address_app.getPrimaryStage());
+        } else {
+            return arxiu = seleccionador.showOpenDialog(
+                    address_app.getPrimaryStage());
+        }
+    }
+
+}
