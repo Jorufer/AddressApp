@@ -44,10 +44,10 @@ public class IndexController implements Initializable {
         nom_column.setCellValueFactory(cellData -> cellData.getValue().getNom());
         cognoms_column.setCellValueFactory(cellData -> cellData.getValue().getCognoms());
 
-        showContactDetails(null);
+        showContactDetalls(null);
 
         contact_table.getSelectionModel().selectedItemProperty().addListener(
-                (observable, old_value, new_value) -> showContactDetails(new_value));
+                (observable, old_value, new_value) -> showContactDetalls(new_value));
     }
 
     public void setAddressApp(UF12AddressApp address_app) {
@@ -55,7 +55,7 @@ public class IndexController implements Initializable {
         contact_table.setItems(address_app.getContactes());
     }
 
-    public void showContactDetails(Contact contacte) {
+    public void showContactDetalls(Contact contacte) {
         if (contacte != null) {
             this.nom_label.setText(contacte.getNom().get());
             this.cognoms_label.setText(contacte.getCognoms().get());
@@ -101,6 +101,34 @@ public class IndexController implements Initializable {
             alert.setHeaderText("No hi ha cap element seleccionat");
             alert.setContentText(
                     "Has de seleccionar un contacte abans d'esborrar");
+            alert.showAndWait();
+        }
+    }
+
+    //3.3.1
+    @FXML
+    public void newContact() {
+        Contact tempContact = new Contact();
+        boolean acceptClicked = address_app.showContactEditDialog(tempContact);
+        if (acceptClicked) {
+            address_app.getContactes().add(tempContact);
+        }
+    }
+
+    //3.3.2.
+    @FXML
+    public void editContact() {
+        Contact selectedContact = contact_table.getSelectionModel().getSelectedItem();
+        if (selectedContact != null) {
+            boolean acceptClicked = address_app.showContactEditDialog(selectedContact);
+            if (acceptClicked) {
+                showContactDetalls(selectedContact);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Cap selecció");
+            alert.setHeaderText("No hi ha cap contacte seleccionat");
+            alert.setContentText("Per favor, selecciona un contacte de la taula.");
             alert.showAndWait();
         }
     }

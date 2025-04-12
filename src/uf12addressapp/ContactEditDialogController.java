@@ -94,7 +94,7 @@ public class ContactEditDialogController implements Initializable {
         if (dataNaixField.getText() == null || dataNaixField.getText().trim().isEmpty()) {
             missatge += "Data de naixement no vàlida\n";
         } else if (!DateUtil.validDate(dataNaixField.getText())) {
-            missatge += "Format de data incorrecte. Ha de ser dd/MM/yyyy\n";
+            missatge += "Format de data incorrecte. Ha de ser dd.MM.yyyy\n";
         }
 
         if (missatge.isEmpty()) {

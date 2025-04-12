@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -171,6 +172,46 @@ public class UF12AddressApp extends Application {
             this.setContactFilePath(arxiu);
         } catch (Exception ex) {
             System.err.println("No s'ha trobat l'arxiu: " + arxiu.getName());
+        }
+    }
+
+    //3.4.1.
+    public boolean showContactEditDialog(Contact contacte) {
+        try {
+            //3.4.2
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("views/ContactEditDialog.fxml"));
+            AnchorPane page = loader.load();
+
+            //3.4.3.
+            Stage dialogStage = new Stage();
+            //3.4.4.
+            dialogStage.setTitle(contacte.getNom().equals("") ? "Nou contacte" : "Editar "
+                    + contacte.getNom() + " " + contacte.getCognoms());
+            //3.4.5.
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+            //3.4.6.
+            Scene scene = new Scene(page);
+            //3.4.7.
+            dialogStage.setScene(scene);
+
+            //3.4.8.
+            ContactEditDialogController controller = loader.getController();
+            //3.4.9.
+            controller.setDialogStage(dialogStage);
+            //3.4.10.
+            controller.loadContacte(contacte);
+
+            //3.4.11.
+            dialogStage.showAndWait();
+
+            //3.4.12.
+            return controller.getAcceptClicked();
+        } catch (IOException e) {
+            e.printStackTrace();
+            //3.4.13.
+            return false;
         }
     }
 

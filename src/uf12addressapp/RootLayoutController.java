@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
+import uf12addressapp.models.Contact;
 
 public class RootLayoutController implements Initializable {
 
