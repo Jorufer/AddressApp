@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import uf12addressapp.bd.GestorContactes;
 
 public class UF12AddressApp extends Application {
 
@@ -29,20 +30,11 @@ public class UF12AddressApp extends Application {
 
     public UF12AddressApp() {
 
-        this.contactes.add(new Contact("Guillermo", "Garrido Portes",
-                "C/Albacete", "Valencia", 47001, 11, 01, 1995));
+        GestorContactes.connectarBD();
 
-        this.contactes.add(new Contact("María", "Gómez Gil",
-                "C/Alzira", "Alacant", 47002, 21, 02, 2000));
-
-        this.contactes.add(new Contact("Diego", "Gonzalez Cuenca",
-                "C/Manises", "Castello", 47003, 31, 03, 2005));
-
-        this.contactes.add(new Contact("Laura", "Galiana Gutiérrez",
-                "C/Xativa", "Barcelona", 47004, 01, 04, 2010));
-
-        this.contactes.add(new Contact("Silvia", "Gandía García",
-                "Plaza la Reina", "Valencia", 47005, 12, 05, 2015));
+        for (Contact c : GestorContactes.carregarContactes()) {
+            this.contactes.add(c);
+        }
 
     }
 
@@ -213,6 +205,11 @@ public class UF12AddressApp extends Application {
             //3.4.13.
             return false;
         }
+    }
+
+    @Override
+    public void stop() {
+        GestorContactes.desconnectarBD();
     }
 
     public static void main(String[] args) {

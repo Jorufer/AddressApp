@@ -2,11 +2,13 @@ package uf12addressapp;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
+import uf12addressapp.bd.GestorContactes;
 import uf12addressapp.models.Contact;
 
 public class RootLayoutController implements Initializable {
@@ -81,6 +83,22 @@ public class RootLayoutController implements Initializable {
             return arxiu = seleccionador.showOpenDialog(
                     address_app.getPrimaryStage());
         }
+    }
+
+    @FXML
+    private void actualitzarBD() {
+        ArrayList<Integer> ids = new ArrayList<>();
+        for (Contact contacte : address_app.getContactes()) {
+            if (contacte.getId() == -1) {
+                int id = GestorContactes.inserirContacte(contacte);
+                contacte.setId(id);
+                ids.add(id);
+            } else {
+                GestorContactes.actualitzarContacte(contacte);
+                ids.add(contacte.getId());
+            }
+        }
+        GestorContactes.eliminarContactes(ids);
     }
 
 }

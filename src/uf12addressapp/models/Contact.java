@@ -7,6 +7,7 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Contact {
 
+    private int id = -1;
     private SimpleStringProperty nom;
     private SimpleStringProperty cognoms;
     private SimpleStringProperty domicili;
@@ -26,12 +27,21 @@ public class Contact {
     }
 
     public Contact() {
+        
         this.nom = new SimpleStringProperty("");
         this.cognoms = new SimpleStringProperty("");
         this.domicili = new SimpleStringProperty("");
         this.ciutat = new SimpleStringProperty("");
         this.codi_postal = new SimpleIntegerProperty(-1);
         this.data_de_naixement = new SimpleObjectProperty<>(null);
+    }
+
+    public int getId() {
+        return id;
+    }
+    
+    public void setId(int id) {
+        this.id = id;
     }
 
     public SimpleStringProperty getNom() {

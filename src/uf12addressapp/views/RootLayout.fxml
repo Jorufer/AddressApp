@@ -14,6 +14,7 @@
                   <MenuItem mnemonicParsing="false" onAction="#openFile" text="Obrir" />
                         <MenuItem mnemonicParsing="false" onAction="#saveFile" text="Guardar" />
                   <MenuItem mnemonicParsing="false" onAction="#saveAsFile" text="Guardar com" />
+                  <MenuItem fx:id="actualitzarBDMenuItem" mnemonicParsing="false" onAction="#actualitzarBD" text="Actualitzar BD" />
                   <MenuItem mnemonicParsing="false" onAction="#exit" text="Eixir" />
                     </items>
                 </Menu>
